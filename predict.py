@@ -21,7 +21,13 @@ if __name__ == "__main__":
     full_df = preprocess_data()
 
     X_train, X_test, y_train, y_test = data_split(full_df,0.3)
+    
     model = train_model(X_train, X_test, y_train, y_test)
     predictions = predict(model, X_test)
     mse = mean_squared_error(y_test, predictions)
-    print('Success - MSE is: ' + str(mse))
+    print('Success - Linear MSE is: ' + str(mse))
+
+    rfmodel = train_model(X_train, X_test, y_train, y_test, linear = False)
+    rfpredictions = predict(rfmodel, X_test)
+    rfmse = mean_squared_error(y_test, rfpredictions)
+    print('Success - RF MSE is: ' + str(rfmse))

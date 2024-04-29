@@ -53,25 +53,29 @@ def data_split(df, test_size = 0.3):
 
     return X_train, X_test, y_train, y_test
 
-def train_model(X_train, X_test, y_train, y_test):
+def train_model(X_train, X_test, y_train, y_test, linear = True):
 
-    linear_m = LinearRegression().fit(X_train, y_train)
+    if linear:
+        linear_m = LinearRegression().fit(X_train, y_train)
 
-    #heteroskedasticity, need to transform some variable
-    # residuals = y_test-lin_pred
-    # plt.scatter(y_test,lin_pred)
+        #heteroskedasticity, need to transform some variable
+        # residuals = y_test-lin_pred
+        # plt.scatter(y_test,lin_pred)
 
-    # plt.show()
+        # plt.show()
 
-    forest = RandomForestRegressor(300)
-    rf = forest.fit(X_train, y_train)
+        forest = RandomForestRegressor(300)
+        rf = forest.fit(X_train, y_train)
 
-    yfit = forest.predict(X_test)
-    #MSE
+        yfit = forest.predict(X_test)
+        #MSE
 
-    # plt.scatter(y_test,yfit)
+        # plt.scatter(y_test,yfit)
 
-    # plt.show()
-    model = linear_m
-    
+        # plt.show()
+        model = linear_m
+    else:
+        forest = RandomForestRegressor(300)
+        forest.fit(X_train, y_train)
+        model = forest
     return model
