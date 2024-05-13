@@ -6,6 +6,7 @@ from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 from sklearn.model_selection import cross_val_predict
 from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import HistGradientBoostingRegressor
 
 from sklearn import metrics
 from sklearn.metrics import mean_squared_error
@@ -31,3 +32,11 @@ if __name__ == "__main__":
     rfpredictions = predict(rfmodel, X_test)
     rfmse = mean_squared_error(y_test, rfpredictions)
     print('Success - RF MSE is: ' + str(rfmse))
+
+    hbc = HistGradientBoostingRegressor()
+    hbc = hbc.fit(X_train, y_train)
+
+    yfit = hbc.predict(X_test)
+    hbpredictions = predict(hbc, X_test)
+    hbmse = mean_squared_error(y_test, hbpredictions)
+    print('Success - HBR MSE is: ' + str(hbmse))
